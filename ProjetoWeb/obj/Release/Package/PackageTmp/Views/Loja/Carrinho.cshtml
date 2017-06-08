@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Carrinho";
+    Layout = "~/Views/Shared/_LayoutLoja.cshtml";
+}
+
+<h3 class="title">Carrinho</h3>
+
+<div id="ListaCarrinho"></div>
+
+<div>
+    <div id="ModalCompraFinalizada" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box">
+                Parabéns! <hr />
+                Compra realiza com sucesso!
+                <br />
+                <a href="~/loja">Voltar para loja</a>
+                <hr />
+                <button class="button is-danger" onclick="FecharModal()">Fechar</button>
+            </div>
+        </div>
+        <button class="modal-close" onclick="FecharModal()"></button>
+    </div>
+</div>
+
+
+<button class="button is-primary" onclick="finalizarCompra()">
+    Finalizar Compra
+</button>
+
+@section scriptCarrinho{
+<script>
+    $(document).ready(function () {
+        var dados = localStorage.getItem('store.carrinho');
+        carrinho = JSON.parse(dados);
+
+        var htmlCarrinho = "<table class='table is-striped'>";
+        var valorTotal = 0;
+        for (var item of carrinho) {
+
+            var tr = "<tr><td><img src='" + item.Imagem + "' class='img-prod-carrinho'></td><td>" + item.Marca + " " + item.Modelo + "</td><td>R$ " + item.Valor + "</td></tr>";
+            valorTotal += parseFloat(item.Valor.replace(',', '.'));
+            //console.log(parseFloat(item.Valor.replace(',', '.')));
+            htmlCarrinho += tr;
+        }
+        htmlCarrinho += "<tr><td>Total da compra</td><td colspan='2'>" + valorTotal + "</td></tr>";
+        htmlCarrinho += "</table>";
+        
+
+        $('#ListaCarrinho').html(htmlCarrinho);
+
+    });
+</script>
+}

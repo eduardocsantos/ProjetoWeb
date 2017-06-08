@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ProjetoWeb.Models.Produto>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutLoja.cshtml";
+}
+
+<h2>Vitrine</h2>
+
+<div class="columns is-multiline">
+
+    @foreach (var item in Model)
+    {
+        <div class="column is-3 animated fadeInUp">
+            <div class="card">
+                <div class="card-image">
+                    <figure class="image is-4by3">
+                        <img src="@item.Imagem" alt="Image">
+                    </figure>
+                </div>
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <figure class="image is-48x48">
+                                <img src="@item.Imagem" alt="Image">
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <p class="title is-4">@item.Modelo</p>
+                            <p class="subtitle is-6">@item.Marca</p>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="tag is-danger">@item.Valor.ToString("C")</span>
+                    </div>
+
+                    <div class="content">
+                        @item.Descricao
+                    </div>
+
+                    <button class="button is-primary" 
+                            onclick="adicionarAoCarrinho(@item.Codigo, '@item.Marca', '@item.Modelo', '@item.Valor', '@item.Imagem')">
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                        &nbsp;Adicionar
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+

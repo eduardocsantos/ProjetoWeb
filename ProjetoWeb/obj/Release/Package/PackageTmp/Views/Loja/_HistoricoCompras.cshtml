@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ProjetoWeb.Models.Venda>
+<div id="ModalHistorico" class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Histórico de compras</p>
+            <button class="delete" onclick="FecharModalHistorico()"></button>
+        </header>
+        <section class="modal-card-body">
+            <table class="table is-narrow">
+                <tr>
+                    <td></td>
+                    <td>Data Compra</td>
+                    <td>Código</td>
+                    <td>Total da compra</td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        </td>
+                        <td>@item.DataVenda</td>
+                        <td>@item.IdVenda</td>
+                        <td>@item.TotalVenda</td>
+                    </tr>
+                    
+                }
+            </table>
+        </section>
+        <footer class="modal-card-foot">
+            <a class="button is-warnning" onclick="FecharModalHistorico()">Fechar</a>
+        </footer>
+    </div>
+</div>
+<script>
+    function FecharModalHistorico() {
+        $('#ModalHistorico').remove();
+    }
+</script>

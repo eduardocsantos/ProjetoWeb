@@ -1,0 +1,59 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />    
+    <title>Login</title>
+
+    <link href="~/Content/bootstrap.cosmo.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" /></head>
+
+<body class="fundo-login">
+
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <a href="#" class="navbar-brand">
+                <span class="glyphicon glyphicon-shopping-cart">  Loja Virtual</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <form action="~/autenticacao/login" method="post">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"> Login </h3>
+                        </div>
+                        <div class="panel-body">
+                           
+                            Usuário:
+                            <input type="text" name="Login" placeholder="usuário" class="form-control" />
+                            Senha:
+                            <input type="password" name="Senha" placeholder="senha" class="form-control" />
+                            <hr />
+                            @if(ViewBag.falha != null)
+                            {
+                                <div class="alert alert-danger">@ViewBag.falha</div>
+                            }
+                            <button type="submit" class="btn btn-primary center-block">
+                                Entrar
+                            </button>
+
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

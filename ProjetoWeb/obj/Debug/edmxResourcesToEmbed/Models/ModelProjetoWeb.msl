@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProjetoWebModelStoreContainer" CdmEntityContainer="ProjetoWebEntities">
+    <EntitySetMapping Name="GrupoUsuario">
+      <EntityTypeMapping TypeName="ProjetoWebModel.GrupoUsuario">
+        <MappingFragment StoreEntitySet="GrupoUsuario">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="ProjetoWebModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdGrupo" ColumnName="IdGrupo" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Senha" ColumnName="Senha" />
+          <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Produto">
+      <EntityTypeMapping TypeName="ProjetoWebModel.Produto">
+        <MappingFragment StoreEntitySet="Produto">
+          <ScalarProperty Name="Imagem" ColumnName="Imagem" />
+          <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+          <ScalarProperty Name="Valor" ColumnName="Valor" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+          <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+          <ScalarProperty Name="Marca" ColumnName="Marca" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Venda">
+      <EntityTypeMapping TypeName="ProjetoWebModel.Venda">
+        <MappingFragment StoreEntitySet="Venda">
+          <ScalarProperty Name="TotalVenda" ColumnName="TotalVenda" />
+          <ScalarProperty Name="DataVenda" ColumnName="DataVenda" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="IdVenda" ColumnName="IdVenda" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VendaItem">
+      <EntityTypeMapping TypeName="ProjetoWebModel.VendaItem">
+        <MappingFragment StoreEntitySet="VendaItem">
+          <ScalarProperty Name="ValorTotal" ColumnName="ValorTotal" />
+          <ScalarProperty Name="ValorUnitario" ColumnName="ValorUnitario" />
+          <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+          <ScalarProperty Name="IdVenda" ColumnName="IdVenda" />
+          <ScalarProperty Name="CodigoProduto" ColumnName="CodigoProduto" />
+          <ScalarProperty Name="IdItemVenda" ColumnName="IdItemVenda" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Relatório de vendas</h3>
+
+<div class="row">
+    <div class="col-sm-2">
+        <select id="selectAno" class="form-control">
+            <option>2017</option>
+            <option>2016</option>
+        </select>
+    </div>
+
+    <div class="col-sm-2">
+        <select id="selectMes" class="form-control">
+            <option value="12">Dezembro</option>
+            <option value="11">Novembro</option>
+            <option value="10">Outubro</option>
+            <option value="09">Setembro</option>
+            <option value="08">Agosto</option>
+            <option value="07">Julho</option>
+            <option value="06">Junho</option>
+            <option value="05">Maio</option>
+            <option value="04">Abril</option>
+            <option value="03">Março</option>
+            <option value="02">Fevereiro</option>
+            <option value="01">Janeiro</option>
+        </select>
+    </div>
+
+    <div class="col-sm-2">
+        <button class="btn btn-primary" onclick="gerarRelatorio()">Gerar relatório</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <canvas id="MeuGrafico"></canvas>
+    </div>
+</div>
+
+
+@section scriptGrafico{
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+<script>
+    function gerarRelatorio() {
+        var mes = $('#selectMes').val();
+        var ano = $('#selectAno').val();
+
+        $.get("/Relatorio/ListaVendasPorDia?ano=" + ano + "&mes=" + mes,
+            function (resposta) {
+                console.log(resposta);
+                montaGrafico(resposta);
+        });
+    }
+
+
+    function montaGrafico(resposta) {
+        //$('iframe').remove();
+        var dias = [];
+        var valores = [];
+
+        for (item of resposta) {
+            dias.push(item.Dia);
+            valores.push(item.ValorTotal);
+        }
+
+        //var canvas = document.getElementById("MeuGrafico");
+        var ctx = document.getElementById("MeuGrafico").getContext('2d');
+        
+        //ctx.clearRect(0, 0, canvas.width, canvas.height);
+        //ctx.beginPath();
+        
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: dias,
+                datasets: [{
+                    label: 'Total de vendas',
+                    data: valores,
+                    backgroundColor: 
+                        'rgba(75, 192, 192, 0.2)'
+                    ,
+                    borderColor: 
+                       
+                        'rgba(75, 192, 192, 1)'
+                    ,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+</script>    
+
+
+}

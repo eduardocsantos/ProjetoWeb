@@ -1,0 +1,89 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TDS Store</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="~/Content/estiloscarrinho.css"  />
+</head>
+<body>
+    <nav class="nav has-shadow animated fadeInDown">
+        <div class="container">
+            <div class="nav-left">
+                <a class="nav-item">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    &nbsp; TDS Store
+                </a>
+                <a href="~/loja" class="nav-item is-tab is-active">Home</a>
+                <a href="#" onclick="ListarHistorico()" class="nav-item is-tab  ">Histórico de compras</a>
+            </div>
+            <span class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+            <div class="nav-right nav-menu">
+                <a href="~/loja/carrinho" class="nav-item is-tab">
+                    <span class="tag is-danger" id="QuantidadeTotalCarrinho">0</span>
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    &nbsp; Carrinho
+                </a>
+                <a class="nav-item is-tab">@User.Identity.Name</a>
+
+                <a class="nav-item text-danger" href="~/autenticacao/sair">
+                    <i class="glyphicon glyphicon-log-out" aria-hidden="true">Sair</i>
+                </a>
+
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>TDS Store</strong> by Turma Visual Studio 31/05/2017 <br />
+                    Aluno: Eduardo Camargo <br /> E-mail: educamargomt@gmail.com
+                </p>
+                <p>
+                    <a class="icon" href="~/loja">
+                    </a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/carrinho.js"></script>
+    @RenderSection("scriptCarrinho", false)
+
+    <script>
+        function ListarHistorico() {
+            $.ajax({
+                url: "/loja/HistoricoCompras",
+                method: "GET",
+
+            })
+            .done(function (view) {
+                $('body').append(view);
+            });
+        }
+    </script>
+</body>
+</html>

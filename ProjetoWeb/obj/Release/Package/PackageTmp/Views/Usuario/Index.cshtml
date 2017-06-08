@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ProjetoWeb.Models.Usuario>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>Lista de usuários</h3>
+
+<p>
+    @Html.ActionLink("Cadastrar novo", "Create", "Usuario", new { @class="btn btn-primary"})
+</p>
+
+<table class="table">
+    <tr class="bg-primary">
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Senha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GrupoUsuario.Descricao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Senha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GrupoUsuario.Descricao)
+        </td>
+        <td>
+            <a href="~/usuario/edit/@item.Id" title="Editar" class="text-warning">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar
+            </a>
+            <a href="~/usuario/details/@item.Id" title="Detalhes" class="text-info">
+                <i class="fa fa-list-alt" aria-hidden="true"></i> Detalhes
+            </a>
+
+            <a href="~/usuario/delete/@item.Id" title="Excluir" class="text-danger">
+                <i class="fa fa-trash" aria-hidden="true"></i> Excluir
+            </a>
+    
+        </td>
+    </tr>
+}
+
+</table>

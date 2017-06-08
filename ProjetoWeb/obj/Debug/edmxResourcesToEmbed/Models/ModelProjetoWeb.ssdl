@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjetoWebModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="GrupoUsuario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descricao" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Produto">
+    <Key>
+      <PropertyRef Name="Codigo" />
+    </Key>
+    <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Marca" Type="nvarchar" MaxLength="50" />
+    <Property Name="Modelo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Descricao" Type="nvarchar" MaxLength="300" />
+    <Property Name="Valor" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Saldo" Type="int" Nullable="false" />
+    <Property Name="Imagem" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdGrupo" Type="int" />
+    <Property Name="Nome" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Senha" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="Ativo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Venda">
+    <Key>
+      <PropertyRef Name="IdVenda" />
+    </Key>
+    <Property Name="IdVenda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdUsuario" Type="int" />
+    <Property Name="DataVenda" Type="datetime" />
+    <Property Name="TotalVenda" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="VendaItem">
+    <Key>
+      <PropertyRef Name="IdItemVenda" />
+    </Key>
+    <Property Name="IdItemVenda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodigoProduto" Type="int" Nullable="false" />
+    <Property Name="IdVenda" Type="int" Nullable="false" />
+    <Property Name="Quantidade" Type="int" Nullable="false" />
+    <Property Name="ValorUnitario" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="ValorTotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Grupo_Usuario">
+    <End Role="GrupoUsuario" Type="Self.GrupoUsuario" Multiplicity="0..1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GrupoUsuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="IdGrupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Venda_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+    <End Role="Venda" Type="Self.Venda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Venda">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VendaItem_Produto">
+    <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+    <End Role="VendaItem" Type="Self.VendaItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produto">
+        <PropertyRef Name="Codigo" />
+      </Principal>
+      <Dependent Role="VendaItem">
+        <PropertyRef Name="CodigoProduto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VendaItem_Venda">
+    <End Role="Venda" Type="Self.Venda" Multiplicity="1" />
+    <End Role="VendaItem" Type="Self.VendaItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venda">
+        <PropertyRef Name="IdVenda" />
+      </Principal>
+      <Dependent Role="VendaItem">
+        <PropertyRef Name="IdVenda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProjetoWebModelStoreContainer">
+    <EntitySet Name="GrupoUsuario" EntityType="Self.GrupoUsuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Venda" EntityType="Self.Venda" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VendaItem" EntityType="Self.VendaItem" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Grupo_Usuario" Association="Self.FK_Grupo_Usuario">
+      <End Role="GrupoUsuario" EntitySet="GrupoUsuario" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Venda_Usuario" Association="Self.FK_Venda_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Venda" EntitySet="Venda" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VendaItem_Produto" Association="Self.FK_VendaItem_Produto">
+      <End Role="Produto" EntitySet="Produto" />
+      <End Role="VendaItem" EntitySet="VendaItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VendaItem_Venda" Association="Self.FK_VendaItem_Venda">
+      <End Role="Venda" EntitySet="Venda" />
+      <End Role="VendaItem" EntitySet="VendaItem" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
